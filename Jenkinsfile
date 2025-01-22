@@ -16,5 +16,10 @@ pipeline{
                 sh './jenkins/scripts/test.sh'
             }
         }
+        stage('deploy'){
+            sh './jenkins/scripts/deliver.sh'
+            input message: 'Sudah selesai menggunakan app? (Klik "Proceed" untuk mengakhiri)'
+            sh './jenkins/scripts/kill.sh'
+        }
     }
 }
