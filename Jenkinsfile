@@ -17,10 +17,10 @@ pipeline{
             }
         }
         stage('deploy'){
-            steps{
-            sh './jenkins/scripts/deliver.sh'
-            input message: 'Sudah selesai menggunakan app? (Klik "Proceed" untuk mengakhiri)'
-            sh './jenkins/scripts/kill.sh'
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Sudah selesai menggunakan app? (Klik "Proceed" untuk mengakhiri)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
