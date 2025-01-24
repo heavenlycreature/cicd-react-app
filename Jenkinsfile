@@ -6,21 +6,28 @@ pipeline{
         }
     }
     stages{
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('test') {
+        stage('Test') {
             steps {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('deploy'){
+         stage('Manual Approval') {
+            steps {
+                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan ke tahap Deploy)'
+            }
+        }
+
+        stage('Deploy'){
             steps {
                 sh './jenkins/scripts/deliver.sh'
-                input message: 'Sudah selesai menggunakan app? (Klik "Proceed" untuk mengakhiri)'
+                sleep time: 1, unit: 'MINUTES'
                 sh './jenkins/scripts/kill.sh'
+                echo 'Pipeline has finished successfully.'
             }
         }
     }
